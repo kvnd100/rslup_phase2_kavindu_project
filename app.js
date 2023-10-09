@@ -1,14 +1,11 @@
-const http = require("http");
+const express = require("express");
 
-const hostname = "127.0.0.1";
-const port = 3000;
+const app = express();
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.end("Hello World");
-});
+const productRoutes = require("./routes/product-routes");
+const orderRoutes = require("./routes/order-routes");
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.use(productRoutes);
+app.use("/api/order", orderRoutes);
+
+app.listen(3000);
